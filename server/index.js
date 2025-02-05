@@ -12,6 +12,10 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  return res.send('Server running correctly!');
+});
+
 app.post('/api/ai', async (req, res) => {
   const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY,
