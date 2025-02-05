@@ -24,6 +24,12 @@ app.post('/api/ai', async (req, res) => {
   // Example = { payload: { message: "" } }
   const body = await req.body;
 
+  console.log(body);
+
+  if (!body.payload.message) {
+    return res.status(500).json({ message: 'Something went wrong' });
+  }
+
   const aiResponse = await groq.chat.completions.create({
     messages: [
       {

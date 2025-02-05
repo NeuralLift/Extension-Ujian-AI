@@ -1,10 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Copy Page Text",
+  "name": "AI Text Copier",
+  "description": "Ekstensi untuk menyalin teks dan mengirim ke AI",
   "version": "1.0",
-  "description": "Menyalin teks halaman dengan tombol atau shortcut.",
-  "permissions": ["storage", "scripting", "clipboardWrite", "activeTab"],
-  "host_permissions": ["<all_urls>"],
+  "permissions": ["storage", "activeTab", "clipboardRead", "clipboardWrite"],
   "background": {
     "service_worker": "background.js"
   },
@@ -23,12 +22,5 @@
       "128": "icons/icon.png"
     }
   },
-  "commands": {
-    "copy_text": {
-      "suggested_key": {
-        "default": "Alt+C"
-      },
-      "description": "Copy teks dari halaman"
-    }
-  }
+  "host_permissions": ["http://*/*", "https://*/*"]
 }
