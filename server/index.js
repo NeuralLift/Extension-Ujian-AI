@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import Groq from 'groq-sdk';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import 'dotenv/config';
 
 /**
@@ -8,12 +10,17 @@ import 'dotenv/config';
  */
 const app = express();
 const port = 3000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  return res.send('Server running correctly!');
+  return res.status(200).sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
 app.post('/api/ai', async (req, res) => {
