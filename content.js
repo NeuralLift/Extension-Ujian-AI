@@ -1,27 +1,38 @@
-// Fungsi untuk menyalin teks dari elemen tertentu
+// Fungsi untuk menyalin teks dari semua elemen dengan selector tertentu
 function copyElementText(selector) {
-  const element = document.querySelector(selector); // Dapatkan elemen berdasarkan selector
-  if (element) {
-    const text = element.innerText || element.textContent; // Ambil teks
+  const elements = document.querySelectorAll(selector); // Ambil semua elemen yang cocok dengan selector
+  if (elements.length > 0) {
+    const texts = Array.from(elements)
+      .map((el) => el.innerText.trim() || el.textContent.trim()) // Ambil teks dari setiap elemen
+      .filter((text) => text.length > 0) // Hapus teks kosong
+      .join('\n\n'); // Gabungkan dengan pemisah baris
+
+    if (!texts) {
+      showNotification('Tidak ada teks yang bisa disalin!', 'error');
+      return;
+    }
 
     // Simpan teks ke chrome.storage
-    chrome.storage.local.set({ copiedText: text }, () => {
-      console.log('✅ Teks berhasil disalin dan disimpan!');
+    chrome.storage.local.set({ copiedText: texts }, () => {
+      console.log('✅ Semua teks berhasil disalin dan disimpan!');
     });
 
     // Salin teks ke clipboard
     navigator.clipboard
-      .writeText(text)
+      .writeText(texts)
       .then(() => {
-        showNotification('Teks berhasil disalin ke clipboard!', 'success');
+        showNotification(
+          'Semua teks berhasil disalin ke clipboard!',
+          'success'
+        );
       })
       .catch((err) => {
         console.error('❌ Gagal menyalin teks:', err);
         showNotification('Gagal menyalin teks.', 'error');
       });
   } else {
-    console.log('❌ Elemen tidak ditemukan!');
-    showNotification('Elemen tidak ditemukan!', 'error');
+    console.log('❌ Tidak ada elemen yang cocok dengan selector!');
+    showNotification('Tidak ada elemen yang ditemukan!', 'error');
   }
 }
 
@@ -48,6 +59,6 @@ function showNotification(message, type) {
 // Siapkan event listener untuk shortcut (Alt + C)
 window.addEventListener('keydown', (event) => {
   if (event.altKey && event.key === 'c') {
-    copyElementText('.card-body'); // Atau ganti dengan selector sesuai kebutuhan
+    copyElementText('.card-body'); // 🔥 Menyalin semua teks dari semua .card-body
   }
 });

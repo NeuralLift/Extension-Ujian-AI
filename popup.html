@@ -44,6 +44,7 @@
             box-shadow: var(--box-shadow);
             font-size: 14px;
             line-height: 1.5;
+            white-space: pre-wrap;
         }
 
         #loading {
@@ -109,14 +110,18 @@
 
 <body>
     <div class="container">
-        <h3>Hasil AI</h3>
+        <h3>CopyQ</h3>
 
         <div id="loading" class="hidden">
             <div class="loading-spinner"></div>
             Memproses...
         </div>
 
-        <div id="resultContainer" class="result-box hidden"></div>
+        <div id="resultContainer" class="hidden">
+            <h3>Jawaban</h3>
+            <div id="resultText" class="result-box hidden">
+            </div>
+        </div>
 
         <button id="fetchAIButton">
             Ambil Hasil

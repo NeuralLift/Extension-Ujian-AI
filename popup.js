@@ -1,70 +1,84 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Fungsi untuk menampilkan hasil AI setelah tombol diklik
-  async function fetchAIResult() {
-    // Ambil teks yang sudah disalin di chrome.storage
-    chrome.storage.local.get('copiedText', async (data) => {
-      const loadingText = document.getElementById('loading');
-      const resultContainer = document.getElementById('resultContainer');
-      const copyTextContainer = document.getElementById('copyTextContainer');
-      const copyText = document.getElementById('copyText');
+class AIExtension {
+  constructor() {
+    this.loadingText = document.getElementById('loading');
+    this.resultContainer = document.getElementById('resultContainer');
+    this.resultText = document.getElementById('resultText');
+    this.copyTextContainer = document.getElementById('copyTextContainer');
+    this.copyText = document.getElementById('copyText');
+    this.fetchAIButton = document.getElementById('fetchAIButton');
 
-      loadingText.classList.remove('hidden');
-      copyTextContainer.classList.add('hidden');
-      resultContainer.classList.add('hidden');
-      copyText.classList.add('hidden');
+    this.API_URL = 'https://extension-ujian-print-ai.vercel.app/api/ai';
+
+    this.initialize();
+  }
+
+  initialize() {
+    // Memeriksa apakah ada teks yang disalin di chrome.storage m
+    if (chrome.storage.local.get('copiedText')) {
+      this.fetchAIResult();
+    }
+
+    this.fetchAIButton.addEventListener('click', () => this.fetchAIResult());
+  }
+
+  async fetchAIResult() {
+    chrome.storage.local.get('copiedText', async (data) => {
+      this.showLoading();
 
       if (!data.copiedText) {
-        resultContainer.textContent = '❌ Tidak ada teks yang disalin!';
-        loadingText.classList.add('hidden');
-        resultContainer.classList.remove('hidden');
+        this.showError('❌ Tidak ada teks yang disalin!');
         return;
       }
 
       const message = data.copiedText;
-
       try {
-        // Kirim teks yang disalin ke API AI
-        const API_URL = 'https://extension-ujian-print-ai.vercel.app/api/ai';
-        const body = { payload: { message } };
-
-        const response = await fetch(API_URL, {
+        const response = await fetch(this.API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
+          body: JSON.stringify({ payload: { message } }),
           signal: AbortSignal.timeout(9000),
         });
 
         const responseData = await response.json();
 
-        // Tampilkan hasil atau kesalahan
         if (response.ok) {
-          resultContainer.textContent = `Hasil AI: ${responseData.message}`;
-          loadingText.classList.add('hidden');
-          resultContainer.classList.remove('hidden');
-          copyTextContainer.classList.remove('hidden');
-          copyText.classList.remove('hidden');
-          copyText.textContent = message || 'Teks tidak tersedia';
+          this.showResult(responseData.message, message);
         } else {
-          resultContainer.textContent = `❌ Error: ${responseData.message}`;
-          loadingText.classList.add('hidden');
-          resultContainer.classList.remove('hidden');
-          copyText.classList.remove('hidden');
-          copyTextContainer.classList.remove('hidden');
-          copyText.textContent = message || 'Teks tidak tersedia';
+          this.showError(`❌ Error: ${responseData.message}`, message);
         }
       } catch (error) {
-        resultContainer.textContent = `❌ Terjadi kesalahan: ${error.message}`;
-        loadingText.classList.add('hidden');
-        resultContainer.classList.remove('hidden');
-        copyText.classList.remove('hidden');
-        copyTextContainer.classList.remove('hidden');
-        copyText.textContent = message || 'Teks tidak tersedia';
+        this.showError(`❌ Terjadi kesalahan: ${error.message}`, message);
       }
     });
   }
 
-  // Event listener untuk tombol fetch hasil AI
-  document
-    .getElementById('fetchAIButton')
-    .addEventListener('click', fetchAIResult);
-});
+  showLoading() {
+    this.loadingText.classList.remove('hidden');
+    this.resultContainer.classList.add('hidden');
+    this.resultText.classList.add('hidden');
+    this.copyTextContainer.classList.add('hidden');
+    this.copyText.classList.add('hidden');
+  }
+
+  showResult(result, copiedText) {
+    this.loadingText.classList.add('hidden');
+    this.resultContainer.classList.remove('hidden');
+    this.resultText.classList.remove('hidden');
+    this.copyTextContainer.classList.remove('hidden');
+    this.copyText.classList.remove('hidden');
+    this.resultText.textContent = result || 'Tidak ada jawaban';
+    this.copyText.textContent = copiedText || 'Teks tidak tersedia';
+  }
+
+  showError(errorMessage, copiedText = '') {
+    this.loadingText.classList.add('hidden');
+    this.resultContainer.classList.remove('hidden');
+    this.resultText.classList.remove('hidden');
+    this.copyTextContainer.classList.remove('hidden');
+    this.copyText.classList.remove('hidden');
+    this.resultText.textContent = errorMessage;
+    this.copyText.textContent = copiedText || 'Teks tidak tersedia';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => new AIExtension());
