@@ -14,11 +14,16 @@
             <div class="header-content">
                 <div class="logo">
                     <Bot class="icon" />
-                    <span class="logo-text">CopyQ </span>
+                    <span class="logo-text" onclick='window.location.href = "/"'>CopyQ </span>
                 </div>
                 <nav class="nav">
-                    <a href="#features" class="nav-link">Features</a>
-                    <a href="#install" class="nav-link">Install</a>
+                    <a data-key="features" href="#features" class="nav-link">Features</a>
+                    <a data-key="install" href="#install" class="nav-link">Install</a>
+
+                    <select id="languageSwitcher">
+                        <option value="en">English</option>
+                        <option value="id">Bahasa Indonesia</option>
+                    </select>
                 </nav>
             </div>
         </header>
@@ -26,12 +31,13 @@
         <main>
             <section class="hero">
                 <div class="hero-content">
-                    <h1>Your AI Assistant in the Browser</h1>
-                    <p>Get instant AI-powered analysis and insights directly in your browser. Fast, accurate, and always
+                    <h1 data-key="title">Your AI Assistant in the Browser</h1>
+                    <p data-key="description">Get instant AI-powered analysis and insights directly in your browser.
+                        Fast, accurate, and always
                         ready to help.</p>
                     <div class="button-group">
-                        <a href="#install" class="button primary">Install Now</a>
-                        <a href="#features" class="button secondary">Learn More</a>
+                        <a data-key="install_now" href="#install" class="button primary">Install Now</a>
+                        <a data-key="learn_more" href="#features" class="button secondary">Learn More</a>
                     </div>
                 </div>
             </section>
@@ -51,8 +57,9 @@
                                 <path d="M9 13v2" />
                             </svg>
                         </div>
-                        <h3>Instant Analysis</h3>
-                        <p>Get AI-powered insights and analysis with just one click, right in your browser.</p>
+                        <h3 data-key="instant_analysis">Instant Analysis</h3>
+                        <p data-key="instant_analysis_desc">Get AI-powered insights and analysis with just one click,
+                            right in your browser.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
@@ -63,8 +70,9 @@
                                     d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
                             </svg>
                         </div>
-                        <h3>Lightning Fast</h3>
-                        <p>Optimized for speed and performance, get results in milliseconds.</p>
+                        <h3 data-key="lightning_fast">Lightning Fast</h3>
+                        <p data-key="lightning_fast_desc">Optimized for speed and performance, get results in
+                            milliseconds.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
@@ -75,8 +83,8 @@
                                     d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
                             </svg>
                         </div>
-                        <h3>Works Everywhere</h3>
-                        <p>Compatible with all major browsers and websites.</p>
+                        <h3 data-key="works_everywhere">Works Everywhere</h3>
+                        <p data-key="works_everywhere_desc">Compatible with all major browsers and websites.</p>
                     </div>
                 </div>
             </section>
@@ -84,25 +92,50 @@
             <section class="demo">
                 <div class="demo-content">
                     <div class="demo-text">
-                        <h2>See it in Action</h2>
-                        <p>Experience the power of AI analysis right in your browser. Get instant insights and results
+                        <h2 data-key="see_action">See it in Action</h2>
+                        <p data-key="see_action_desc">Experience the power of AI analysis right in your browser. Get
+                            instant insights and results
                             with a single click.</p>
                         <a href="#install" class="button primary">Install Extension</a>
                     </div>
-                    <div class="demo-image">
-                        <Image
-                            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-zQkg6to0ALbVUKKzO8KYmwgBUIaS4x.png"
-                            alt="AI Assistant Extension Demo" width={500} height={400} />
+                    <div class="demo-video">
+                        <video src="videos/demo.mp4" alt="AI Assistant Extension Demo" controls width="100%"
+                            height="100%"></video>
                     </div>
                 </div>
             </section>
 
             <section id="install" class="cta">
                 <div class="cta-content">
-                    <h2>Ready to Get Started?</h2>
-                    <p>Install our browser extension now and experience the power of AI at your fingertips.</p>
-                    <a href="https://github.com/mgalihpp/extension_ujian_print_ai/archive/refs/heads/main.zip"
-                        target="_blank" class="button primary">Add to Browser</a>
+                    <h2 data-key="ready_to_start">Ready to Get Started?</h2>
+                    <p data-key="ready_to_start_desc">Install our browser extension now and experience the power of AI
+                        at your fingertips.</p>
+                    <a style="display: inline-flex; align-items: center; gap: 8px;"
+                        href="https://github.com/mgalihpp/extension_ujian_print_ai/releases/download/1.0/Extension_1.0.zip"
+                        target="_blank" class="button primary">
+                        <span data-key="install_extension">
+                            Download Extension
+                        </span>
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 24 24"
+                            style="fill: white; font-weight: 500;">
+                            <path
+                                d="M 11 1 C 9.3550302 1 8 2.3550302 8 4 L 4 4 C 2.9069372 4 2 4.9069372 2 6 L 2 12 L 4 12 C 4.5650302 12 5 12.43497 5 13 C 5 13.56503 4.5650302 14 4 14 L 2 14 L 2 20 C 2 21.093063 2.9069372 22 4 22 L 10 22 L 10 20 C 10 19.43497 10.43497 19 11 19 C 11.56503 19 12 19.43497 12 20 L 12 22 L 18 22 C 19.093063 22 20 21.093063 20 20 L 20 16 C 21.64497 16 23 14.64497 23 13 C 23 11.35503 21.64497 10 20 10 L 20 6 C 20 4.9069372 19.093063 4 18 4 L 14 4 C 14 2.3550302 12.64497 1 11 1 z M 11 3 C 11.56503 3 12 3.4349698 12 4 L 12 6 L 18 6 L 18 12 L 20 12 C 20.56503 12 21 12.43497 21 13 C 21 13.56503 20.56503 14 20 14 L 18 14 L 18 20 L 14 20 C 14 18.35503 12.64497 17 11 17 C 9.3550302 17 8 18.35503 8 20 L 4 20 L 4 16 C 5.6449698 16 7 14.64497 7 13 C 7 11.35503 5.6449698 10 4 10 L 4 6 L 10 6 L 10 4 C 10 3.4349698 10.43497 3 11 3 z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+            </section>
+
+            <section class="installation-video">
+                <div class="video-content">
+                    <h2 data-key="how_to_install">How to Install</h2>
+                    <p data-key="how_to_install_desc">Watch this quick video to learn how to install and set up our AI
+                        Assistant extension:</p>
+                    <div class="demo-video" style="max-width: 800px; margin: 0 auto;">
+                        <video width="100%" height="100%" src="videos/installation.mp4" title="Installation Guide"
+                            controls>
+                            </vid>
+                    </div>
                 </div>
             </section>
         </main>
@@ -120,11 +153,14 @@
                         <path d="M15 13v2" />
                         <path d="M9 13v2" />
                     </svg>
-                    <p>Built with CopyQ. All rights reserved.</p>
+                    <p data-key="built_with_copyq">Built with CopyQ. All rights reserved.</p>
                 </div>
             </div>
         </footer>
     </div>
+
+
+    <script src="js/localization.js"></script>
 </body>
 
 </html>

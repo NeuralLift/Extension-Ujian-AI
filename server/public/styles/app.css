@@ -19,6 +19,10 @@
   scroll-behavior: smooth;
 }
 
+html {
+  scroll-padding-top: 56px; /* Adjust this value to match your header height */
+}
+
 body {
   font-family: system-ui, -apple-system, sans-serif;
   color: var(--text-color);
@@ -39,6 +43,7 @@ body {
   background: var(--background-color);
   border-bottom: 1px solid var(--border-color);
   z-index: 100;
+  height: 56px;
 }
 
 .header-content {
@@ -160,13 +165,13 @@ body {
   color: var(--text-light);
 }
 
-.demo-image {
+.demo-video {
   border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.demo-image img {
+.demo-video video {
   width: 100%;
   height: auto;
   display: block;
@@ -194,6 +199,28 @@ body {
   color: var(--text-light);
 }
 
+/* Installation Video Section */
+.installation-video {
+  padding: 4rem var(--spacing);
+  background: var(--background-color);
+}
+
+.video-content {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.video-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.video-content p {
+  margin-bottom: 2rem;
+  color: var(--text-light);
+}
+
 /* Footer */
 .footer {
   background: var(--background-color);
@@ -211,6 +238,11 @@ body {
   align-items: center;
   gap: 0.5rem;
   justify-content: center;
+}
+
+.footer-logo p {
+  font-size: 0.825rem;
+  font-weight: 400;
 }
 
 /* Buttons */
@@ -271,6 +303,10 @@ body {
   .features-grid {
     grid-template-columns: 1fr;
   }
+
+  .video-container iframe {
+    height: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -284,5 +320,9 @@ body {
 
   :root {
     --spacing: 1rem;
+  }
+
+  .video-container iframe {
+    height: 100%;
   }
 }
