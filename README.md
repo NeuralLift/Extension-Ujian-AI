@@ -1,8 +1,4 @@
-# PREVIEW
-![image](https://github.com/user-attachments/assets/ad6eff13-780a-44bf-8d00-69d4b9708edd)
-![image](https://github.com/user-attachments/assets/9b61004e-e158-49f3-96e9-577ab2168ca2)
-
-# Extension AI Simple - Ekstensi Penerjemah & AI Text Processor 👋
+# Extension CopyQ 👋
 
 Ekstensi ini dirancang untuk menyalin teks dari halaman web, kemudian mengirimkan teks yang disalin ke API AI untuk mendapatkan jawaban atas pertanyaan yang diberikan.
 
