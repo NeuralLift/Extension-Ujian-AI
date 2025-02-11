@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const languageSwitcher = document.getElementById('languageSwitcher');
   const elementsToTranslate = document.querySelectorAll('[data-key]');
 
-  console.log(languageSwitcher);
-
   // Simpan bahasa terakhir di localStorage
   const savedLang = localStorage.getItem('lang') || 'en';
 
